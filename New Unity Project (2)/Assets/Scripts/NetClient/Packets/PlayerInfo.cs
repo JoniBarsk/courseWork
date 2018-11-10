@@ -1,24 +1,25 @@
 namespace Packets
 {
-  public class PlayerInfo : IReadable, IWritable
-  {
-    public string Name { get; set; }
-    public bool Ready { get; set; }
-    public void Read(PacketReader reader)
+    public class PlayerInfo : IReadable, IWritable
     {
-      Name = reader.ReadString();
-      Ready = reader.ReadBoolean();
-    }
+        public string Name { get; set; }
+        public bool Ready { get; set; }
 
-    public void Write(PacketWriter writer)
-    {
-      writer.Write(Name);
-      writer.Write(Ready);
-    }
+        public void Read(PacketReader reader)
+        {
+            Name = reader.ReadString();
+            Ready = reader.ReadBoolean();
+        }
 
-    public override string ToString()
-    {
-      return string.Format("{0}, ready = {1}", Name, Ready);
+        public void Write(PacketWriter writer)
+        {
+            writer.Write(Name);
+            writer.Write(Ready);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}, ready = {1}", Name, Ready);
+        }
     }
-  }
 }
