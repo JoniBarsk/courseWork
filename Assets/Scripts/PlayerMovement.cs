@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour {
     }
     private Vector3 GetUserCommand( float hort, float vert, Vector3 olddir){
         // Input.GetAxisRaw("Horizontal")
-        if (hort != 0)
+        if (hort != 0 && vert == 0)
         {
             if (Input.GetKey(KeyCode.UpArrow) && olddir != Vector3.back)
             {
@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
         // Input.GetAxisRaw("Vertical")
-        if (vert != 0)
+        if (vert != 0 && hort == 0)
         {
             if (Input.GetKey(KeyCode.RightArrow) && olddir != Vector3.left)
             {

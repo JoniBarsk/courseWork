@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4190345732118408}
-  - component: {fileID: 114417560262233764}
+  - component: {fileID: 114254999967927858}
   m_Layer: 0
   m_Name: Opponents
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114417560262233764
+--- !u!114 &114254999967927858
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -51,4 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eae9409ee7a8074ea004318562921b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  constantSpeed: 0.0001
+  opponentsPrefab: {fileID: 1330871819039132, guid: 6df8b58a77910c446a3a21df8b04f3bf,
+    type: 2}
+  constantSpeed: 1
