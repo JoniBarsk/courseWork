@@ -14,6 +14,8 @@ public class Opponent : MonoBehaviour {
             IDGenerator idgen = opponents[i].GetComponent<IDGenerator>();
             idgen.idNumber = i;
         }}
+
+
          public void ReceiveCommand(Packets.TickPacket tickPacketInfo)
         {
         var orders = tickPacketInfo.Players;
@@ -26,12 +28,12 @@ public class Opponent : MonoBehaviour {
                 IDGenerator num = opponents[i].GetComponent<IDGenerator>();
             if (id == num.idNumber)
             {
-                Debug.Log("Received orders for 1");
+                Debug.Log("Received orders for " + id + dir);
                 var direction = dir.ToString();
                 Vector3 newDir = new Vector3(0, 0, 0);
                 switch (direction)
                 {
-                    case "forward":
+                    case "Up":
                         newDir = new Vector3(0, 0, 1);
                         break;
                     case "Right":
@@ -40,7 +42,7 @@ public class Opponent : MonoBehaviour {
                     case "Left":
                         newDir = new Vector3(-1, 0, 0);
                         break;
-                    case "Back":
+                    case "Down":
                         newDir = new Vector3(0, 0, -1);
                         break;
                     default:
@@ -48,10 +50,8 @@ public class Opponent : MonoBehaviour {
                         break;
                 }
 
-                // opponents[1].transform.Translate(newDir * constantSpeed);
-                Debug.Log("pos");
-                Debug.Log(id + ", " + pos+ ", "+ dir);
-                Debug.Log("pos");
+                opponents[i].transform.Translate(newDir * constantSpeed);
+
                 }
             }
        }
