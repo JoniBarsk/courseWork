@@ -7,6 +7,8 @@ public class TestScript : MonoBehaviour
 {
 
     private NetworkClient client;
+    public float constantSpeed = 1f;
+    private Opponent adversary;
     private void OnDestroy()
     {
         client.Dispose();
@@ -16,6 +18,7 @@ public class TestScript : MonoBehaviour
     {
         client = new NetworkClient();
         client.Connect("localhost", 2050);
+        adversary = gameObject.AddComponent<Opponent>();
 
         client.OnPacket += (packet) =>
         {
@@ -38,7 +41,14 @@ public class TestScript : MonoBehaviour
                     ack.ClientId = myId;
                     client.Send(ack);
                     break;
+                case PacketType.Tick:
+                    // str: Players: ID: 0, Pos:(float, float), Direction: Right, 
+                    // Id: 1, Pos (float, float), direction: Right, ...
+                    Debug.Log("Case Tick");
+                    adversary.ReceiveCommand(packet as Packets.TickPacket);
+                    break;
                 default:
+                    Debug.Log("Default");
                     Debug.Log(string.Format("Type: {0}, str: {1}", packet.Id, packet.ToString()));
                     break;
             }
@@ -56,9 +66,4 @@ public class TestScript : MonoBehaviour
         };
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
