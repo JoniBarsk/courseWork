@@ -9,6 +9,8 @@ public class TestScript : MonoBehaviour
     private NetworkClient client;
     public float constantSpeed = 1f;
     private Opponent adversary;
+    private Queue<IServerPacket> serverPackets;
+    private Object mutex = new Object();
     private void OnDestroy()
     {
         client.Dispose();
@@ -16,11 +18,41 @@ public class TestScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        serverPackets = new Queue<IServerPacket>();
         client = new NetworkClient();
         client.Connect("localhost", 2050);
         adversary = gameObject.AddComponent<Opponent>();
 
         client.OnPacket += (packet) =>
+        {
+            lock (mutex)
+            {
+                serverPackets.Enqueue(packet);
+            }
+        };
+        client.Connected += (connected) =>
+        {
+            if (!connected)
+            {
+                return;
+            }
+            var login = new Packets.LoginPacket();
+            login.Name = "Test Client";
+            login.Version = 12345;
+            client.Send(login);
+        };
+    }
+    private void Update()
+    {
+        IServerPacket packet = null;
+        lock (mutex)
+        {
+            if (serverPackets.Count > 0)
+            {
+                packet = serverPackets.Dequeue();
+            }
+        }
+        if (packet != null)
         {
             Debug.Log(string.Format("Received Server Packet {0}", packet.Id));
             switch (packet.Id)
@@ -52,18 +84,6 @@ public class TestScript : MonoBehaviour
                     Debug.Log(string.Format("Type: {0}, str: {1}", packet.Id, packet.ToString()));
                     break;
             }
-        };
-        client.Connected += (connected) =>
-        {
-            if (!connected)
-            {
-                return;
-            }
-            var login = new Packets.LoginPacket();
-            login.Name = "Test Client";
-            login.Version = 12345;
-            client.Send(login);
-        };
+        }
     }
-
 }
