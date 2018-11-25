@@ -13,33 +13,32 @@ public class PlayerMovement : MonoBehaviour {
 	void Update(){
         float hort = Input.GetAxisRaw("Horizontal");
         float vert = Input.GetAxisRaw("Vertical");
+        // Debug.Log(hort + ", - :" + vert);
         var oldDir = direction;
         direction = GetUserCommand(hort, vert, oldDir);
         rb.transform.Translate(direction * constantSpeed);
     }
     private Vector3 GetUserCommand( float hort, float vert, Vector3 olddir){
-        // Input.GetAxisRaw("Horizontal")
-        if (hort != 0 && vert == 0)
+        if (hort == 0)
         {
-            if (Input.GetKey(KeyCode.UpArrow) && olddir != Vector3.back)
+            if (Input.GetKey(KeyCode.DownArrow) && olddir != Vector3.forward)
             {
                 direction = Vector3.back;
             }
-            if (Input.GetKey(KeyCode.DownArrow) && olddir != Vector3.forward)
+            if (Input.GetKey(KeyCode.UpArrow) && olddir != Vector3.back)
             {
                 direction = Vector3.forward;
             }
         }
-        // Input.GetAxisRaw("Vertical")
-        if (vert != 0 && hort == 0)
+        else if(vert == 0)
         {
             if (Input.GetKey(KeyCode.RightArrow) && olddir != Vector3.left)
             {
-                direction = Vector3.left;
+                direction = Vector3.right;
             }
             if (Input.GetKey(KeyCode.LeftArrow) && olddir != Vector3.right)
             {
-                direction = Vector3.right;
+                direction = Vector3.left;
             }
         }
         return direction;

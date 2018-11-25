@@ -28,7 +28,8 @@ public class Opponent : MonoBehaviour {
             bool idExists = false;
             if(oppGameObjects != null && oppGameObjects.Count != 0){
             for(int i = 0; i <= orders.Length-1; i++){
-                Debug.Log("i: " + i);
+                // Debug.Log("i: " + i);
+                // Debug.Log("count: " + oppGameObjects.Count);
                 if(oppGameObjects.Count > i){
                         IDGenerator idnum = oppGameObjects[i].GetComponent<IDGenerator>();
                         // Debug.Log(string.Format("orderID: {0}, IDNumber: {1}", order.Id, idnum.idNumber));
@@ -39,10 +40,10 @@ public class Opponent : MonoBehaviour {
                 }
 
             }}
-            Debug.Log("Does it exist: " + idExists);
+            // Debug.Log("Does it exist: " + idExists + " -:- " + id);
             if(idExists){
  
-                    for (int i = 0; i < oppGameObjects.Count-1; i++)
+                    for (int i = 0; i <= oppGameObjects.Count-1; i++)
                     {
                     IDGenerator num = oppGameObjects[i].GetComponent<IDGenerator>();
                         if (id == num.idNumber)
@@ -72,12 +73,14 @@ public class Opponent : MonoBehaviour {
 
                         }
                     }
+                idExists = false;
             }
             else{
 
                 GameObject newOpponent = Instantiate(Resources.Load("opponentPrefab"), pos, Quaternion.identity) as GameObject;
                 IDGenerator newOpponentObject = newOpponent.GetComponent<IDGenerator>();
-                newOpponentObject.idNumber = order.Id;
+                Debug.Log("Generate Opponent: " + id);
+                newOpponentObject.idNumber = id;
                 oppGameObjects.Add(newOpponentObject);
             }
         }
