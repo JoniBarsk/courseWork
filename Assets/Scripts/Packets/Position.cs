@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-<<<<<<< HEAD
 
-=======
->>>>>>> 5e686902e295582cf75428148d38f08acfac7c6f
 namespace Packets
 {
     public class Position : IReadable, IWritable
@@ -26,10 +23,7 @@ namespace Packets
         {
             return string.Format("({0}, {1})", X, Y);
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> 5e686902e295582cf75428148d38f08acfac7c6f
         public static implicit operator Vector3(Position pos)
         {
             return new Vector3(pos.X, 0, pos.Y);

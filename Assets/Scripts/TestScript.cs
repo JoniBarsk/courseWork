@@ -77,13 +77,7 @@ public class TestScript : MonoBehaviour
                 case PacketType.Tick:
                     // str: Players: ID: 0, Pos:(float, float), Direction: Right, 
                     // Id: 1, Pos (float, float), direction: Right, ...
-<<<<<<< HEAD
-                    // Debug.Log("Case Tick");
-                    adversary.ReceiveCommand(packet as Packets.TickPacket);
-                    Debug.Log(packet.ToString());
-=======
                     adversary.OnTick(packet as Packets.TickPacket);
->>>>>>> 5e686902e295582cf75428148d38f08acfac7c6f
                     break;
                 default:
                     // Debug.Log("Default");
