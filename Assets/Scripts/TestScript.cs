@@ -47,6 +47,7 @@ public class TestScript : MonoBehaviour
         IServerPacket packet = null;
         lock (mutex)
         {
+            //Debug.Log(string.Format("Queue length: {0}, deltatime {1}", serverPackets.Count, Time.deltaTime));
             if (serverPackets.Count > 0)
             {
                 packet = serverPackets.Dequeue();
@@ -54,7 +55,7 @@ public class TestScript : MonoBehaviour
         }
         if (packet != null)
         {
-            Debug.Log(string.Format("Received Server Packet {0}", packet.Id));
+            // Debug.Log(string.Format("Received Server Packet {0}", packet.Id));
             switch (packet.Id)
             {
                 case PacketType.LobbyInfo:
@@ -76,11 +77,12 @@ public class TestScript : MonoBehaviour
                 case PacketType.Tick:
                     // str: Players: ID: 0, Pos:(float, float), Direction: Right, 
                     // Id: 1, Pos (float, float), direction: Right, ...
-                    Debug.Log("Case Tick");
+                    // Debug.Log("Case Tick");
                     adversary.ReceiveCommand(packet as Packets.TickPacket);
+                    Debug.Log(packet.ToString());
                     break;
                 default:
-                    Debug.Log("Default");
+                    // Debug.Log("Default");
                     Debug.Log(string.Format("Type: {0}, str: {1}", packet.Id, packet.ToString()));
                     break;
             }
